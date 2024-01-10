@@ -117,9 +117,7 @@ function renderMaze(maze, pixelSquareSize, useJQ=true) {
         $("body").append(html)
     }
 }
-renderMaze(maze, PIXEL_SQUARE_SIZE)
 while(walls.length > 0) {
-    if(maze.generate()) {
-        renderMaze(maze, PIXEL_SQUARE_SIZE)
-    }
+    maze.generate()
 }
+renderMaze(maze, 10)
