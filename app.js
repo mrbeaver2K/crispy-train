@@ -127,10 +127,15 @@ function handleClick() {
         $("table").remove()
         $(".mazebr").remove()
     }
+    $(".warning").remove()
     const width = $("#width").val()
     const height = $("#height").val()
-    $("body").append(renderMaze(generateMaze(width, height), 10))
-    console.log("handled")
+    if(Math.floor(screen.width / 10) >= width) {
+        $("body").append(renderMaze(generateMaze(width, height), 10))
+    }
+    else {
+        $("body").append("<p class=\"warning\">Maze too wide!</p>")
+    }
 }
 
 $(()=>{
