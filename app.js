@@ -110,9 +110,10 @@ function renderMaze(maze, pixelSquareSize) {
         }
         html += "<td class=off></td></tr>"
     }
-    html += "<tr>" + "<td class=off></td>".repeat(maze.width + 2) + "</tr></table><br>"
+    html += "<tr>" + "<td class=off></td>".repeat(maze.width + 2) + "</tr></table><br class=\"mazebr\">"
     return html
 }
+
 function generateMaze(width, height) {
     let maze = new Maze(width, height)
     while(walls.length > 0) {
@@ -120,12 +121,18 @@ function generateMaze(width, height) {
     }
     return maze
 }
+
 function handleClick() {
+    if($("#empty").is(":checked")) {
+        $("table").remove()
+        $(".mazebr").remove()
+    }
     const width = $("#width").val()
     const height = $("#height").val()
     $("body").append(renderMaze(generateMaze(width, height), 10))
     console.log("handled")
 }
+
 $(()=>{
     $("button").click(handleClick)
     console.log($("button"))
