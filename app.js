@@ -130,7 +130,7 @@ function handleClick() {
     $(".warning").remove()
     const width = $("#width").val()
     const height = $("#height").val()
-    if(Math.floor(screen.width / 10) >= width) {
+    if(Math.floor(screen.width / 20) >= width) {
         $("body").append(renderMaze(generateMaze(width, height), 10))
     }
     else {
