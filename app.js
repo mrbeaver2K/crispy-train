@@ -20,7 +20,7 @@ class Maze {
     get(x, y) {
         return this.grid[y][x]
     }
-    generate() {
+    iterate() {
         let setWall = walls[Math.random() * walls.length | 0]
         walls.splice(walls.indexOf(setWall), 1)
         if(setWall.x % 2 == 1) {
@@ -54,8 +54,8 @@ class Maze {
         return false
     }
     setParse(oldSet, newSet) {
-        for(let i = 0; i < maze.height; i++) {
-            for(let j = 0; j < maze.width; j++) {
+        for(let i = 0; i < this.height; i++) {
+            for(let j = 0; j < this.width; j++) {
                 if(this.get(j, i).set == oldSet) {
                     this.get(j, i).set = newSet
                 }
@@ -101,23 +101,32 @@ class Cell extends Tile {
 }
 
 const PIXEL_SQUARE_SIZE = 16;
-let maze = new Maze(30, 20)
-function renderMaze(maze, pixelSquareSize, useJQ=true) {
+function renderMaze(maze, pixelSquareSize) {
     let html = "<table cellspacing=\"0\" cellpadding=\"0\"><tr>" + "<td class=off></td>".repeat(maze.width + 2) + "</tr>"
     for (let i = 0; i < maze.height; i++) {
         html += "<tr><td class=off></td>"
         for (let j = 0; j < maze.width; j++) {
-            html += `<td class="${maze.get(j, i).color}" title="${maze.get(j, i).toString()}"></td>`
+            html += `<td class="${maze.get(j, i).color}" xtitle="${maze.get(j, i).toString()}"></td>`
         }
         html += "<td class=off></td></tr>"
     }
     html += "<tr>" + "<td class=off></td>".repeat(maze.width + 2) + "</tr></table><br>"
-    if (useJQ) {
-        //$("table").remove()
-        $("body").append(html)
+    return html
+}
+function generateMaze(width, height) {
+    let maze = new Maze(width, height)
+    while(walls.length > 0) {
+        maze.iterate()
     }
+    return maze
 }
-while(walls.length > 0) {
-    maze.generate()
+function handleClick() {
+    const width = $("#width").val()
+    const height = $("#height").val()
+    $("body").append(renderMaze(generateMaze(width, height), 10))
+    console.log("handled")
 }
-renderMaze(maze, 10)
+$(()=>{
+    $("button").click(handleClick)
+    console.log($("button"))
+})
