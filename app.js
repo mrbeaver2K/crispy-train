@@ -143,7 +143,7 @@ function handleClear() {
 }
 
 $(()=>{
-    $("button.60").click(handleClick)
-    $("button.Erase").click(handleClear)
+    $(".60").click(handleClick)
+    $(".Erase").click(handleClear)
     console.log($("button"))
 })
