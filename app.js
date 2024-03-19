@@ -124,8 +124,7 @@ function generateMaze(width, height) {
 
 function handleClick() {
     if($("#empty").is(":checked")) {
-        $("table").remove()
-        $(".mazebr").remove()
+        handleClear()
     }
     $(".warning").remove()
     const width = $("#width").val()
@@ -134,11 +133,17 @@ function handleClick() {
         $("body").append(renderMaze(generateMaze(width, height), 10))
     }
     else {
-        $("body").append("<p class=\"warning\">Maze too wide!</p>")
+        $("body").append("<p class=\"warning\">Maze too wide!</p>") 
     }
 }
 
+function handleClear() {
+    $("table").remove()
+    $(".mazebr").remove()
+}
+
 $(()=>{
-    $("button").click(handleClick)
+    $("button.60").click(handleClick)
+    $("button.Erase").click(handleClear)
     console.log($("button"))
 })
